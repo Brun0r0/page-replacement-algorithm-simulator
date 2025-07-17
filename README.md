@@ -1,75 +1,75 @@
-# 🧠 Simulador de Gerência de Memória: LRU e Segunda Chance
+# 🧠 Memory Management Simulator: LRU and Second Chance
 
-Este projeto em C++ simula dois algoritmos clássicos de gerência de memória utilizados por sistemas operacionais: **LRU (Least Recently Used)** e **Segunda Chance**. O programa lê arquivos `.trace` contendo referências a páginas de memória e analisa como cada algoritmo gerencia essas referências com uso de TLB (Translation Lookaside Buffer) e Tabela de Páginas.
+This C++ project simulates two classic memory management algorithms used by operating systems: **LRU (Least Recently Used)** and **Second Chance**. The program reads `.trace` files containing memory page references and simulates how each algorithm handles them using a TLB (Translation Lookaside Buffer) and a Page Table.
 
-## 🚀 Como usar
+## 🚀 How to Use
 
-1. 📁 Coloque seu arquivo `.trace` na pasta `arquivos/` (ex: `arquivos/exemplo.trace`)
-2. ▶️ Compile e execute o código
-3. 🧾 Quando solicitado:
-   - Digite **apenas o nome do arquivo**, sem a extensão `.trace`
-   - Informe o número de **frames da TLB**
+1. 📁 Place your `.trace` file in the `arquivos/` folder (e.g., `arquivos/example.trace`)
+2. ▶️ Compile and run the code
+3. 🧾 When prompted:
+   - Enter **only the file name**, without the `.trace` extension
+   - Enter the number of **TLB frames**
 
-Exemplo:
+Example:
 ```
-Nome do arquivo: exemplo  
-Qnt. Frames de TLB: 4
+File name: example  
+TLB Frame Count: 4
 ```
 
-## 🧩 Estrutura do Projeto
+## 🧩 Project Structure
 
-- `main()` é o ponto de entrada, onde:
-  - Um menu interativo coleta as informações iniciais
-  - O arquivo `.trace` é lido linha a linha
-  - Cada acesso é tratado simultaneamente pelos dois algoritmos
+- `main()` is the entry point where:
+  - A simple menu gathers initial input
+  - The `.trace` file is read line by line
+  - Each access is processed by both algorithms
 
-- **LRU (Least Recently Used)** usa:
-  - `queue<string>` para simular TLB e Tabela
-  - Funções:
+- **LRU (Least Recently Used)** uses:
+  - `queue<string>` for TLB and Page Table
+  - Functions:
     - `buscaPagina_LRU`
     - `atualiza_LRU`
     - `subs_LRU`
 
-- **Segunda Chance** usa:
-  - `vector<string>` para simular TLB e Tabela
-  - Vetores de bits (`vector<bool>`) para marcar segunda chance
-  - Funções:
+- **Second Chance** uses:
+  - `vector<string>` for TLB and Page Table
+  - `vector<bool>` for tracking the second-chance bits
+  - Functions:
     - `buscaPagina_seg_chance`
     - `subs_seg_chance`
 
-## 📊 Saída gerada
+## 📊 Output Example
 
-Ao final da simulação, o programa exibe:
+At the end of the simulation, the program displays:
 
-- ✅ Quantidade de **hits e misses** na TLB
-- 🔁 Taxa de **acertos/erros**
-- 💾 Número de **acessos ao disco** (page faults)
+- ✅ Number of **TLB hits and misses**
+- 🔁 **Hit/Miss ratio**
+- 💾 Number of **disk accesses** (page faults)
 
-Exemplo de saída:
+Example output:
 ```
-Algoritmo LRU:
+LRU Algorithm:
     TLB Hit: 245 / TLB Miss: 119
-    Taxa de acertos/erros: 2.0588
-    Falha de pagina: 75
+    Hit/Miss Ratio: 2.0588
+    Page Faults: 75
 
-Algoritmo Segunda Chance:
+Second Chance Algorithm:
     TLB Hit: 232 / TLB Miss: 132
-    Taxa de acertos/erros: 1.7575
-    Falha de pagina: 84
+    Hit/Miss Ratio: 1.7575
+    Page Faults: 84
 ```
 
-## 🛠️ Compilação
+## 🛠️ Compilation
 
-Compile com `g++`:
+Compile using `g++`:
 
 ```bash
 g++ simulador.cpp -o simulador
 ./simulador
 ```
 
-## 📎 Exemplo de arquivo `.trace`
+## 📎 Sample `.trace` File Format
 
-Cada linha deve conter um endereço lógico (os 5 primeiros caracteres representam a página):
+Each line should contain a logical address (only the first 5 characters represent the page):
 
 ```
 04A2R
@@ -78,24 +78,19 @@ Cada linha deve conter um endereço lógico (os 5 primeiros caracteres represent
 ...
 ```
 
-> Apenas os 5 primeiros caracteres são utilizados. O restante (modo ou deslocamento) é ignorado na simulação.
+> Only the first 5 characters are used. The rest (access mode or offset) is ignored in the simulation.
 
-## 📚 Conceitos usados
+## 📚 Concepts Used
 
-- **LRU (Least Recently Used):** remove a página que não é usada há mais tempo
-- **Segunda Chance:** dá uma chance extra às páginas antes de removê-las, utilizando um bit de uso
+- **LRU (Least Recently Used):** removes the least recently accessed page
+- **Second Chance:** gives pages a second chance before replacing them, using a reference bit
 
-## ⚙️ Constantes
+## ⚙️ Constants
 
-- Tamanho da **Tabela de Páginas** (`tamTabelaP`) é fixado em `64`
-- Tamanho da **TLB** (`tamTLB`) é definido pelo usuário na execução
+- The **Page Table** size (`tamTabelaP`) is fixed at `64`
+- The **TLB** size (`tamTLB`) is defined by the user during runtime
 
-## 🧑‍💻 Autor
+## 🪪 License
 
-Gabriel Brunoro  
-📫 GitHub: [@Brun0r0](https://github.com/Brun0r0)
-
-## 🪪 Licença
-
-Este projeto está sob a licença MIT.  
-Sinta-se livre para usar, modificar e compartilhar 🔓
+This project is licensed under the MIT License.  
+Feel free to use, modify, and share it 🔓
